@@ -1,0 +1,15 @@
+# Dependencies
+node_modules/
+
+# Environment variables
+.env
+
+# JSDoc generated files
+docs/
+
+# Testing output
+coverage/
+
+# Operating system files
+.DS_Store
+Thumbs.db
