@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HealthHub - Healthcare Management System</title>
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+	<header class="topbar">
+		<div class="brand">HealthHub</div>
+		<nav>
+			<a href="#" onclick="navigateTo( 'home' )">Home</a>
+			<a href="#" onclick="navigateTo( 'vaccines' )">Vaccines &amp; Anti-Venoms</a>
+			<!-- TEAM: add one navigation link for your feature here. -->
+		</nav>
+	</header>
+
+	<main>
+
+		<section id="view-home" class="view active">
+			<h2>Welcome to HealthHub</h2>
+			<p>A single place to find essential healthcare information and emergency services.</p>
+			<div class="grid">
+				<div class="card" onclick="navigateTo( 'vaccines' )">
+					<h3>Vaccines &amp; Anti-Venoms</h3>
+					<p>Find vaccines and anti-venoms at hospitals and pharmacies near you.</p>
+				</div>
+			</div>
+		</section>
+
+		<section id="view-vaccines" class="view">
+			<h2>Vaccines &amp; Anti-Venoms Directory</h2>
+			<div class="search-bar">
+				<select id="vaccine-type-filter">
+					<option value="All">All Items</option>
+					<option value="Vaccine">Vaccines Only</option>
+					<option value="Anti-Venom">Anti-Venoms Only</option>
+				</select>
+				<input type="text" id="vaccine-search-input" placeholder="Search by name, hospital, pharmacy, city, area or address...">
+				<button class="btn btn-primary" onclick="loadVaccines()">Search</button>
+			</div>
+			<div id="vaccine-detail" class="hidden"></div>
+			<div id="vaccines-list" class="grid"></div>
+		</section>
+
+		<!-- TEAM: add one <section id="view-yourfeature" class="view"> block here. -->
+
+	</main>
+
+	<script src="/views/api-client.js"></script>
+	<script src="/views/vaccines.js"></script>
+	<!-- TEAM: add one script tag for your view file here. -->
+
+</body>
+</html>

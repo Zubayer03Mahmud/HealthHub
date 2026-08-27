@@ -1,0 +1,111 @@
+:root {
+	--primary: #0d9488;
+	--danger: #dc2626;
+	--text: #1f2937;
+	--muted: #6b7280;
+	--border: #e5e7eb;
+	--bg: #f9fafb;
+}
+
+* { box-sizing: border-box; }
+
+body {
+	margin: 0;
+	font-family: 'Segoe UI', system-ui, sans-serif;
+	color: var(--text);
+	background: var(--bg);
+}
+
+.topbar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	flex-wrap: wrap;
+	gap: 1rem;
+	padding: 1rem 2rem;
+	background: #fff;
+	border-bottom: 1px solid var(--border);
+}
+
+.brand { font-size: 1.3rem; font-weight: 700; color: var(--primary); }
+
+nav a {
+	margin-left: 1.2rem;
+	color: var(--text);
+	text-decoration: none;
+	font-size: 0.95rem;
+}
+
+nav a:hover { color: var(--primary); }
+
+main { max-width: 1100px; margin: 0 auto; padding: 2rem; }
+
+.view { display: none; }
+.view.active { display: block; }
+.hidden { display: none; }
+
+.search-bar {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 0.6rem;
+	margin: 1.2rem 0;
+}
+
+.search-bar input { flex: 1; min-width: 240px; }
+
+input, select {
+	padding: 0.6rem 0.8rem;
+	border: 1px solid var(--border);
+	border-radius: 6px;
+	font-size: 0.95rem;
+}
+
+.btn {
+	padding: 0.6rem 1.1rem;
+	border: none;
+	border-radius: 6px;
+	cursor: pointer;
+	font-size: 0.95rem;
+}
+
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-outline { background: #fff; border: 1px solid var(--border); color: var(--text); }
+
+.grid {
+	display: grid;
+	grid-template-columns: repeat( auto-fill, minmax( 300px, 1fr ) );
+	gap: 1rem;
+}
+
+.card {
+	background: #fff;
+	border: 1px solid var(--border);
+	border-radius: 8px;
+	padding: 1.2rem;
+}
+
+.card h3 { margin: 0.6rem 0; }
+.card p { margin: 0.35rem 0; font-size: 0.92rem; }
+
+.badge {
+	display: inline-block;
+	padding: 0.2rem 0.6rem;
+	border-radius: 999px;
+	font-size: 0.75rem;
+	font-weight: 600;
+}
+
+.badge-green { background: #dcfce7; color: #166534; }
+.badge-red { background: #fee2e2; color: #991b1b; }
+.badge-blue { background: #e0f2fe; color: #075985; }
+
+.alert {
+	padding: 0.9rem 1.1rem;
+	border-radius: 6px;
+	margin: 0.6rem 0;
+}
+
+.alert-info { background: #e0f2fe; color: #075985; border: 1px solid #7dd3fc; }
+.alert-danger { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+
+.muted { color: var(--muted); }
