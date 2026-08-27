@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HealthHub - Hospital Search (Bangladesh)</title>
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+	<header>
+		<a href="#" class="brand" onclick="navigateTo('home')">🏥 HealthHub BD</a>
+		<nav>
+			<ul id="nav-links">
+				<li><a href="#" onclick="navigateTo('hospitals')">Hospitals</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main id="app-container">
+		<!-- Notification Alerts -->
+		<div id="global-alert" class="alert hidden"></div>
+
+		<!-- 1. Home View -->
+		<section id="view-home" class="view active">
+			<div class="hero">
+				<h1>Smart & Instant Hospital Access Across Bangladesh</h1>
+				<p>Search hospital beds, departments, and emergency hotlines across Bangladesh.</p>
+				<div class="hero-buttons">
+					<button class="btn btn-primary" onclick="navigateTo('hospitals')">Explore Hospitals</button>
+				</div>
+			</div>
+
+			<h2 class="section-title">Core Medical Services</h2>
+			<div class="grid">
+				<div class="card" onclick="navigateTo('hospitals')">
+					<h3>🏥 Hospital Search</h3>
+					<p>Search DMCH, Square, Evercare & regional medical college beds.</p>
+				</div>
+			</div>
+		</section>
+
+		<!-- Hospital Search View -->
+		<section id="view-hospitals" class="view">
+			<h2>🏥 Hospital Search</h2>
+			<div class="search-bar">
+				<input type="text" id="hospital-search-input" placeholder="Search by Hospital Name, City (Dhaka, Chattogram), or Area...">
+				<button class="btn btn-primary" onclick="searchHospitals()">Search</button>
+			</div>
+			<div id="hospitals-list" class="grid"></div>
+		</section>
+
+	</main>
+
+	<footer>
+		<p>&copy; 2026 HealthHub Bangladesh - Hospital Search Module (Standalone Extraction). All rights reserved.</p>
+	</footer>
+
+<!-- Frontend JavaScript View Modules -->
+	<script src="/views/api-client.js"></script>
+	<script src="/views/hospitals.js"></script>
+</body>
+</html>
