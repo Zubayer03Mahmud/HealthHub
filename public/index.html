@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HealthHub - Login</title>
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+
+    <!-- Login View -->
+    <section id="view-login" class="view">
+        <div class="form-card">
+            <h2>Sign In to HealthHub</h2>
+
+            <form id="login-form">
+                <div class="form-group">
+                    <label for="login-email">Email Address</label>
+                    <input
+                        type="email"
+                        id="login-email"
+                        required
+                        placeholder="name@healthhub.com"
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">Password</label>
+                    <input
+                        type="password"
+                        id="login-password"
+                        required
+                        placeholder="••••••••"
+                    >
+                </div>
+
+                <button
+                    type="submit"
+                    class="btn btn-primary btn-block"
+                >
+                    Login
+                </button>
+            </form>
+
+            <p class="form-footer">
+                Need an account?
+                <a href="#" onclick="navigateTo('register')">
+                    Register here
+                </a>
+            </p>
+        </div>
+    </section>
+
+    <!-- JS Link -->
+    <script src="/views/login.js"></script>
+</body>
+</html>
