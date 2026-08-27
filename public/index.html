@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HealthHub - Doctor Appointment Booking</title>
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+	<!-- Navigation Bar -->
+	<header class="navbar">
+		<div class="nav-container">
+			<a href="/" class="brand-logo">🏥 HealthHub</a>
+			<nav class="nav-links">
+				<a href="#" class="nav-item active">📅 Doctor Appointments</a>
+			</nav>
+		</div>
+	</header>
+
+	<!-- Main Content Root Container -->
+	<main id="app-root"></main>
+
+	<!-- Application Footer -->
+	<footer class="footer">
+		<p>&copy; 2026 HealthHub Bangladesh. Online Healthcare Consultation & Booking System.</p>
+	</footer>
+
+	<!-- Scripts -->
+	<script src="/views/appointment.js"></script>
+	<script>
+		document.addEventListener( 'DOMContentLoaded', () => {
+			const container = document.getElementById( 'app-root' );
+			if ( typeof AppointmentView !== 'undefined' && container ) {
+				AppointmentView.render( container );
+			}
+		} );
+	</script>
+</body>
+</html>
