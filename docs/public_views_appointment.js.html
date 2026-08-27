@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: public/views/appointment.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: public/views/appointment.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * @fileoverview Appointment Booking View Component.
+ * Dynamic appointment reservation form, doctor selector, and slot cancellation.
+ * 
+ * @module public/views/appointment
+ * @author Alamin
+ */
+
+const AppointmentView = {
+	/**
+	 * Render the appointment booking form and list.
+	 * @param {HTMLElement} containerElement
+	 */
+	render: async ( containerElement ) => {
+		containerElement.innerHTML = `
+			&lt;section style="max-width: 900px; margin: 2rem auto; padding: 0 1rem; font-family: system-ui, sans-serif;">
+				&lt;div style="background: linear-gradient(135deg, #0284c7, #0369a1); color: white; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.08);">
+					&lt;h1 style="margin: 0 0 0.5rem 0;">📅 Doctor Appointment Booking&lt;/h1>
+					&lt;p style="margin: 0; opacity: 0.9;">Schedule real-time doctor consultations across specialized clinical departments.&lt;/p>
+				&lt;/div>
+
+				&lt;div style="display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; background: white; padding: 2rem; border-radius: 12px; border: 1px solid #e2e8f0; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.05);">
+					&lt;!-- Booking Form -->
+					&lt;form id="appointmentForm" style="display: flex; flex-direction: column; gap: 1rem;">
+						&lt;h3 style="margin: 0 0 0.5rem 0; color: #0f172a;">Patient &amp; Doctor Details&lt;/h3>
+						
+						&lt;div>
+							&lt;label style="display: block; font-size: 0.85rem; font-weight: 600; color: #475569; margin-bottom: 0.25rem;">Patient Name&lt;/label>
+							&lt;input type="text" id="patientName" required placeholder="e.g. Tanvir Ahmed" style="width: 100%; padding: 0.65rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box;" />
+						&lt;/div>
+
+						&lt;div>
+							&lt;label style="display: block; font-size: 0.85rem; font-weight: 600; color: #475569; margin-bottom: 0.25rem;">Phone Number&lt;/label>
+							&lt;input type="tel" id="patientPhone" required placeholder="e.g. 01712345678" style="width: 100%; padding: 0.65rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box;" />
+						&lt;/div>
+
+						&lt;div>
+							&lt;label style="display: block; font-size: 0.85rem; font-weight: 600; color: #475569; margin-bottom: 0.25rem;">Select Doctor&lt;/label>
+							&lt;select id="doctorSelect" required style="width: 100%; padding: 0.65rem; border: 1px solid #cbd5e1; border-radius: 6px; background: white; box-sizing: border-box;">
+								&lt;option value="">Loading doctors...&lt;/option>
+							&lt;/select>
+						&lt;/div>
+
+						&lt;div>
+							&lt;label style="display: block; font-size: 0.85rem; font-weight: 600; color: #475569; margin-bottom: 0.25rem;">Appointment Date&lt;/label>
+							&lt;input type="date" id="appointmentDate" required style="width: 100%; padding: 0.65rem; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box;" />
+						&lt;/div>
+
+						&lt;div>
+							&lt;label style="display: block; font-size: 0.85rem; font-weight: 600; color: #475569; margin-bottom: 0.25rem;">Available Time Slot&lt;/label>
+							&lt;select id="timeSlotSelect" required style="width: 100%; padding: 0.65rem; border: 1px solid #cbd5e1; border-radius: 6px; background: white; box-sizing: border-box;">
+								&lt;option value="">Choose doctor &amp; date first&lt;/option>
+							&lt;/select>
+						&lt;/div>
+
+						&lt;button type="submit" style="margin-top: 0.5rem; background: #0284c7; color: white; border: none; padding: 0.75rem; border-radius: 6px; font-weight: bold; cursor: pointer; transition: background 0.2s;">
+							Confirm Appointment
+						&lt;/button>
+						&lt;div id="bookingStatus" style="font-size: 0.9rem; margin-top: 0.5rem;">&lt;/div>
+					&lt;/form>
+
+					&lt;!-- Confirmed Appointments List -->
+					&lt;div>
+						&lt;h3 style="margin: 0 0 1rem 0; color: #0f172a;">Confirmed Bookings&lt;/h3>
+						&lt;div id="bookedAppointmentsList" style="display: flex; flex-direction: column; gap: 0.75rem; max-height: 440px; overflow-y: auto;">
+							&lt;p style="color: #64748b;">Loading appointments...&lt;/p>
+						&lt;/div>
+					&lt;/div>
+				&lt;/div>
+			&lt;/section>
+		`;
+
+		const doctorSelect = document.getElementById( 'doctorSelect' );
+		const dateInput = document.getElementById( 'appointmentDate' );
+		const slotSelect = document.getElementById( 'timeSlotSelect' );
+		const form = document.getElementById( 'appointmentForm' );
+		const statusBox = document.getElementById( 'bookingStatus' );
+		const listContainer = document.getElementById( 'bookedAppointmentsList' );
+
+		dateInput.min = new Date().toISOString().split( 'T' )[ 0 ];
+
+		// Fetch and load doctors
+		const loadDoctors = async () => {
+			const res = await fetch( '/api/appointments/doctors' );
+			const result = await res.json();
+			if ( result.success ) {
+				doctorSelect.innerHTML = '&lt;option value="">-- Choose Specialist Doctor --&lt;/option>' +
+					result.data.map( ( d ) => `&lt;option value="${d.id}">${d.name} (${d.department})&lt;/option>` ).join( '' );
+			}
+		};
+
+		// Fetch available time slots
+		const loadSlots = async () => {
+			const doctorId = doctorSelect.value;
+			const date = dateInput.value;
+			if ( ! doctorId || ! date ) return;
+
+			slotSelect.innerHTML = '&lt;option value="">Checking slot availability...&lt;/option>';
+			const res = await fetch( `/api/appointments/slots?doctorId=${doctorId}&amp;date=${date}` );
+			const result = await res.json();
+
+			if ( result.success &amp;&amp; result.availableSlots.length > 0 ) {
+				slotSelect.innerHTML = result.availableSlots.map( ( s ) => `&lt;option value="${s}">${s}&lt;/option>` ).join( '' );
+			} else {
+				slotSelect.innerHTML = '&lt;option value="">No slots available for this date&lt;/option>';
+			}
+		};
+
+		// Fetch list of bookings with Confirmed status &amp; Cancel action button
+		const loadAppointments = async () => {
+			const res = await fetch( '/api/appointments' );
+			const result = await res.json();
+			if ( result.success ) {
+				if ( result.data.length === 0 ) {
+					listContainer.innerHTML = '&lt;p style="color: #64748b;">No active appointments scheduled.&lt;/p>';
+					return;
+				}
+
+				listContainer.innerHTML = result.data.map( ( apt ) => `
+					&lt;div style="border: 1px solid #e2e8f0; border-radius: 8px; padding: 0.85rem; background: ${apt.status === 'Cancelled' ? '#f1f5f9' : '#ffffff'}; box-shadow: 0 1px 3px rgba(0,0,0,0.04);">
+						&lt;div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.35rem;">
+							&lt;strong style="color: ${apt.status === 'Cancelled' ? '#94a3b8' : '#0f172a'};">${apt.patientName}&lt;/strong>
+							&lt;div style="display: flex; align-items: center; gap: 0.5rem;">
+								&lt;span style="font-size: 0.75rem; background: ${apt.status === 'Confirmed' ? '#dcfce7' : '#fee2e2'}; color: ${apt.status === 'Confirmed' ? '#15803d' : '#b91c1c'}; padding: 0.2rem 0.5rem; border-radius: 4px; font-weight: bold;">
+									${apt.status}
+								&lt;/span>
+								${apt.status === 'Confirmed' ? `
+									&lt;button class="btn-cancel" data-id="${apt.id}" style="background: #ffffff; color: #dc2626; border: 1px solid #fca5a5; padding: 0.2rem 0.55rem; border-radius: 4px; font-size: 0.75rem; font-weight: 600; cursor: pointer;">
+										Cancel
+									&lt;/button>
+								` : ''}
+							&lt;/div>
+						&lt;/div>
+						&lt;div style="font-size: 0.85rem; color: #475569;">
+							👨‍⚕️ ${apt.doctorName} (${apt.department})
+						&lt;/div>
+						&lt;div style="font-size: 0.8rem; color: #64748b; margin-top: 0.2rem;">
+							🕒 ${apt.appointmentDate} | ${apt.timeSlot}
+						&lt;/div>
+					&lt;/div>
+				` ).join( '' );
+			}
+		};
+
+		// Event Delegation for Cancel Button Click
+		listContainer.addEventListener( 'click', async ( e ) => {
+			if ( e.target.classList.contains( 'btn-cancel' ) ) {
+				const appointmentId = e.target.getAttribute( 'data-id' );
+				const confirmCancel = confirm( 'Are you sure you want to cancel this appointment?' );
+
+				if ( confirmCancel ) {
+					try {
+						const response = await fetch( `/api/appointments/${appointmentId}`, {
+							method: 'DELETE'
+						} );
+						const data = await response.json();
+
+						if ( data.success ) {
+							await loadAppointments();
+							await loadSlots(); // Slot free hoye gele update hobe
+						} else {
+							alert( data.message || 'Failed to cancel appointment.' );
+						}
+					} catch ( err ) {
+						alert( 'Network error. Could not cancel appointment.' );
+					}
+				}
+			}
+		} );
+
+		doctorSelect.addEventListener( 'change', loadSlots );
+		dateInput.addEventListener( 'change', loadSlots );
+
+		// Form Submission
+		form.addEventListener( 'submit', async ( e ) => {
+			e.preventDefault();
+			statusBox.innerHTML = '&lt;span style="color: #0284c7;">Processing booking...&lt;/span>';
+
+			const payload = {
+				patientName: document.getElementById( 'patientName' ).value,
+				patientPhone: document.getElementById( 'patientPhone' ).value,
+				doctorId: doctorSelect.value,
+				appointmentDate: dateInput.value,
+				timeSlot: slotSelect.value
+			};
+
+			try {
+				const res = await fetch( '/api/appointments', {
+					method: 'POST',
+					headers: { 'Content-Type': 'application/json' },
+					body: JSON.stringify( payload )
+				} );
+				const data = await res.json();
+
+				if ( data.success ) {
+					statusBox.innerHTML = '&lt;span style="color: #16a34a; font-weight: bold;">✓ Appointment Confirmed!&lt;/span>';
+					form.reset();
+					await loadSlots();
+					await loadAppointments();
+				} else {
+					statusBox.innerHTML = `&lt;span style="color: #dc2626;">✕ ${data.message}&lt;/span>`;
+				}
+			} catch ( err ) {
+				statusBox.innerHTML = '&lt;span style="color: #dc2626;">✕ Failed to submit booking request.&lt;/span>';
+			}
+		} );
+
+		await loadDoctors();
+		await loadAppointments();
+	}
+};
+
+if ( typeof module !== 'undefined' ) {
+	module.exports = AppointmentView;
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-controllers_appointment-controller.html">controllers/appointment-controller</a></li><li><a href="module-data_mock-database.html">data/mock-database</a></li><li><a href="module-models_appointment-model.html">models/appointment-model</a></li><li><a href="module-public_views_appointment.html">public/views/appointment</a></li><li><a href="module-routes_api-routes.html">routes/api-routes</a></li><li><a href="module-server.html">server</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 4.0.5</a> on Thu Aug 27 2026 23:35:24 GMT+0600 (Bangladesh Standard Time)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>
