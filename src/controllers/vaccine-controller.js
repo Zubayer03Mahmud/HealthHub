@@ -19,7 +19,7 @@ class VaccineController {
 	 * @param {Object} res Express response.
 	 * @returns {void}
 	 */
-	static search( req, res ) {
+	static async search( req, res ) {
 		try {
 			const { q, type } = req.query;
 
@@ -38,7 +38,7 @@ class VaccineController {
 				} );
 			}
 
-			const items = VaccineModel.search( q, type );
+			const items = await VaccineModel.search( q, type );
 
 			// Counted here so the interface can tell "nothing found" apart from
 			// "found, but every facility is out of stock" (SRS 3.1.7 F1 and F2).
@@ -68,9 +68,9 @@ class VaccineController {
 	 * @param {Object} res Express response.
 	 * @returns {void}
 	 */
-	static getById( req, res ) {
+	static async getById( req, res ) {
 		try {
-			const item = VaccineModel.findById( req.params.id );
+			const item = await VaccineModel.findById( req.params.id );
 
 			if ( ! item ) {
 				return res.status( 404 ).json( {
