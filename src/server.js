@@ -12,6 +12,7 @@ const express = require( 'express' );
 const dotenv = require( 'dotenv' );
 
 const apiRoutes = require( './routes/api-routes' );
+const VaccineModel = require( './models/vaccine-model' );
 
 dotenv.config();
 
@@ -32,8 +33,21 @@ app.use( '/api', ( req, res ) => {
 	res.status( 404 ).json( { success: false, message: 'API endpoint not found.' } );
 } );
 
-app.listen( PORT, () => {
-	console.log( `HealthHub server running at http://localhost:${ PORT }` );
-} );
+/**
+ * Prepares each feature's database table, then starts listening for
+ * requests.
+ *
+ * @async
+ * @returns {Promise<void>}
+ */
+async function start() {
+	await VaccineModel.initializeVaccineTable();
+
+	app.listen( PORT, () => {
+		console.log( `HealthHub server running at http://localhost:${ PORT }` );
+	} );
+}
+
+start();
 
 module.exports = app;
