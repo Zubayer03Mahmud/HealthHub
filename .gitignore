@@ -49,3 +49,6 @@ Thumbs.db
 
 # JSDoc generated files
 docs/
+
+# ESLint Cache
+.eslintcache
