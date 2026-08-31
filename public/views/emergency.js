@@ -1,14 +1,20 @@
 /**
- * @fileoverview Emergency Hotline View Component
+ * @fileoverview Emergency Hotline View Component.
+ * Dynamic emergency hotline directory, district search, and category filtering.
+ * 
  * @module public/views/emergency
  * @author Konok
  */
 
 const EmergencyView = {
+	/**
+	 * Render emergency hotlines layout and event listeners.
+	 * @param {HTMLElement} containerElement
+	 */
 	render: async ( containerElement ) => {
 		containerElement.innerHTML = `
-			<section class="emergency-section" style="max-width: 1000px; margin: 2rem auto; padding: 0 1rem;">
-				<div style="background: linear-gradient(135deg, #dc2626, #991b1b); color: white; padding: 2rem; border-radius: 12px; margin-bottom: 2rem;">
+			<section class="emergency-section" style="max-width: 1000px; margin: 2rem auto; padding: 0 1rem; font-family: system-ui, sans-serif;">
+				<div style="background: linear-gradient(135deg, #dc2626, #991b1b); color: white; padding: 2rem; border-radius: 12px; margin-bottom: 2rem; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.08);">
 					<h1 style="margin: 0 0 0.5rem 0;">🚨 24/7 National Emergency Hotlines</h1>
 					<p style="margin: 0; opacity: 0.9;">Instant direct dial for medical triage, ambulance, and hospital emergency casualty desks in Bangladesh.</p>
 				</div>
@@ -40,7 +46,7 @@ const EmergencyView = {
 				const result = await ApiClient.get( `/api/emergency-contacts?search=${encodeURIComponent( query )}&category=${encodeURIComponent( category )}` );
 
 				if ( ! result.success || result.data.length === 0 ) {
-					grid.innerHTML = `<p style="grid-column: 1/-1; text-align: center; color: #64748b; padding: 2rem;">No emergency contacts found matching your query.</p>`;
+					grid.innerHTML = '<p style="grid-column: 1/-1; text-align: center; color: #64748b; padding: 2rem;">No emergency contacts found matching your query.</p>';
 					return;
 				}
 
@@ -67,13 +73,17 @@ const EmergencyView = {
 						</div>
 					</div>
 				` ).join( '' );
-			} catch ( err ) {
-				grid.innerHTML = `<p style="color: #dc2626; grid-column: 1/-1;">Failed to load emergency contacts.</p>`;
+			} catch {
+				grid.innerHTML = '<p style="color: #dc2626; grid-column: 1/-1;">Failed to load emergency contacts.</p>';
 			}
 		};
 
 		searchInput.addEventListener( 'input', fetchAndRender );
 		categoryFilter.addEventListener( 'change', fetchAndRender );
-		fetchAndRender();
+		await fetchAndRender();
 	}
 };
+
+if ( typeof module !== 'undefined' ) {
+	module.exports = EmergencyView;
+}
