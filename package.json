@@ -6,12 +6,16 @@
   "scripts": {
     "start": "node src/server.js",
     "test": "vitest run",
-    "docs": "jsdoc -c jsdoc.json"
+    "docs": "jsdoc -c jsdoc.json",
+    "lint": "eslint src/ public/views/",
+    "lint:fix": "eslint src/ public/views/ --fix"
   },
   "dependencies": {
     "express": "^4.19.2"
   },
   "devDependencies": {
+    "@eslint/js": "^9.39.5",
+    "eslint": "^9.0.0",
     "jsdoc": "^4.0.3",
     "vitest": "^1.6.0"
   }
