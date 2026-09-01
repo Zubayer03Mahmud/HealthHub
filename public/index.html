@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>HealthHub - Live ICU & CCU Availability Tracker</title>
+	<link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+	<header>
+		<a href="#" class="brand" onclick="navigateTo('home')">🏥 HealthHub BD</a>
+		<nav>
+			<ul id="nav-links">
+				<li><a href="#" onclick="navigateTo('home')">Home</a></li>
+				<li><a href="#" onclick="navigateTo('icu-ccu')">Live ICU / CCU</a></li>
+				<li><a href="tel:999" class="nav-emergency">🚨 Emergency (999)</a></li>
+			</ul>
+		</nav>
+	</header>
+
+	<main id="app-container">
+		<!-- 1. Home View -->
+		<section id="view-home" class="view">
+			<div class="hero">
+				<h1>Smart & Instant ICU / CCU Bed Tracker Across Bangladesh</h1>
+				<p>Real-time critical care occupancy tracking for DMCH, Square, Evercare, Enam Medical and regional medical hospitals.</p>
+				<div class="hero-buttons">
+					<button class="btn btn-primary" onclick="navigateTo('icu-ccu')">Search ICU / CCU Beds Now</button>
+				</div>
+			</div>
+		</section>
+
+		<!-- 2. ICU & CCU Bed Availability View -->
+		<section id="view-icu-ccu" class="view active">
+			<h2>🫀 Live ICU & CCU Availability Tracker</h2>
+			<div class="search-bar">
+				<input type="text" id="icu-location-input" placeholder="Filter by City or District (e.g. Dhaka, Savar, Chattogram)...">
+				<select id="icu-type-filter">
+					<option value="all">All Critical Units</option>
+					<option value="icu">ICU Beds Available</option>
+					<option value="ccu">CCU Beds Available</option>
+				</select>
+				<button class="btn btn-primary" onclick="loadIcuCcu()">Filter Beds</button>
+			</div>
+			<div id="icu-ccu-list" class="grid"></div>
+		</section>
+	</main>
+
+	<footer>
+		<p>&copy; 2026 HealthHub Bangladesh - Secure Centralized Healthcare Platform. All rights reserved.</p>
+	</footer>
+
+	<!-- Scripts -->
+	<script src="/views/api-client.js"></script>
+	<script src="/views/icu-ccu.js"></script>
+</body>
+</html>
