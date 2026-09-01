@@ -1,0 +1,234 @@
+:root {
+	--primary: #0284c7;
+	--primary-dark: #0369a1;
+	--secondary: #0f172a;
+	--danger: #dc2626;
+	--success: #16a34a;
+	--bg: #f8fafc;
+	--card-bg: #ffffff;
+	--text: #334155;
+	--text-muted: #64748b;
+	--border: #e2e8f0;
+	--radius: 8px;
+}
+
+* {
+	box-sizing: border-box;
+	margin: 0;
+	padding: 0;
+	font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+
+body {
+	background-color: var(--bg);
+	color: var(--text);
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
+header {
+	background: #fff;
+	border-bottom: 1px solid var(--border);
+	padding: 1rem 2rem;
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	position: sticky;
+	top: 0;
+	z-index: 100;
+}
+
+.brand {
+	font-size: 1.4rem;
+	font-weight: 700;
+	color: var(--primary);
+	text-decoration: none;
+}
+
+nav ul {
+	display: flex;
+	list-style: none;
+	gap: 1.2rem;
+	align-items: center;
+}
+
+nav a {
+	text-decoration: none;
+	color: var(--secondary);
+	font-weight: 600;
+	font-size: 0.95rem;
+	transition: color 0.2s;
+}
+
+nav a:hover {
+	color: var(--primary);
+}
+
+.nav-emergency {
+	color: var(--danger) !important;
+	font-weight: 700 !important;
+}
+
+main {
+	flex: 1;
+	max-width: 1200px;
+	width: 100%;
+	margin: 1.5rem auto;
+	padding: 0 1.5rem;
+}
+
+/* View switcher */
+.view {
+	display: none;
+}
+
+.view.active {
+	display: block;
+}
+
+/* Typography & Hero */
+.hero {
+	text-align: center;
+	padding: 3rem 1rem;
+}
+
+.hero h1 {
+	font-size: 2.3rem;
+	color: var(--secondary);
+	margin-bottom: 1rem;
+}
+
+.hero p {
+	font-size: 1.05rem;
+	color: var(--text-muted);
+	max-width: 650px;
+	margin: 0 auto 2rem;
+}
+
+.hero-buttons {
+	display: flex;
+	gap: 1rem;
+	justify-content: center;
+}
+
+.section-title {
+	margin: 2rem 0 1rem;
+}
+
+/* Grid & Cards */
+.grid {
+	display: grid;
+	grid-template-columns: repeat(auto-fill, minmax(340px, 1fr));
+	gap: 1.5rem;
+}
+
+.card {
+	background: var(--card-bg);
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	padding: 1.5rem;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	transition: transform 0.15s, box-shadow 0.15s;
+}
+
+.card:hover {
+	transform: translateY(-2px);
+	box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.08);
+}
+
+/* Badges */
+.badge {
+	display: inline-block;
+	padding: 0.25rem 0.6rem;
+	border-radius: 12px;
+	font-size: 0.75rem;
+	font-weight: 700;
+	text-transform: uppercase;
+}
+
+.badge-green { background: #dcfce7; color: #166534; }
+.badge-red { background: #fee2e2; color: #991b1b; }
+.badge-blue { background: #e0f2fe; color: #075985; }
+
+/* Buttons */
+.btn {
+	display: inline-block;
+	padding: 0.6rem 1.1rem;
+	border-radius: var(--radius);
+	border: none;
+	font-size: 0.9rem;
+	font-weight: 600;
+	cursor: pointer;
+	text-align: center;
+	transition: 0.2s;
+}
+
+.btn-primary { background: var(--primary); color: #fff; }
+.btn-primary:hover { background: var(--primary-dark); }
+.btn-danger { background: var(--danger); color: #fff; }
+.btn-danger:hover { opacity: 0.9; }
+.btn-outline { border: 1px solid var(--border); background: #fff; color: var(--secondary); }
+.btn-outline:hover { background: var(--bg); }
+
+/* Search bar */
+.search-bar {
+	display: flex;
+	gap: 0.5rem;
+	margin-bottom: 1.5rem;
+	flex-wrap: wrap;
+}
+
+.search-bar input, .search-bar select {
+	padding: 0.6rem 0.8rem;
+	border: 1px solid var(--border);
+	border-radius: var(--radius);
+	font-size: 0.9rem;
+}
+
+.search-bar input { flex: 1; min-width: 220px; }
+
+/* Tables */
+.table-container {
+	overflow-x: auto;
+	background: #fff;
+	border-radius: var(--radius);
+	border: 1px solid var(--border);
+	margin-top: 0.5rem;
+}
+
+table {
+	width: 100%;
+	border-collapse: collapse;
+}
+
+th, td {
+	padding: 0.6rem 0.8rem;
+	text-align: left;
+	border-bottom: 1px solid var(--border);
+	font-size: 0.85rem;
+}
+
+th { background: #f1f5f9; font-weight: 600; }
+
+/* Alerts */
+.alert {
+	padding: 0.8rem 1rem;
+	border-radius: var(--radius);
+	margin-bottom: 1.5rem;
+	font-weight: 500;
+}
+
+.alert-danger { background: #fee2e2; color: #991b1b; border: 1px solid #fca5a5; }
+.hidden { display: none; }
+
+footer {
+	background: #fff;
+	border-top: 1px solid var(--border);
+	padding: 1.5rem;
+	text-align: center;
+	color: var(--text-muted);
+	font-size: 0.85rem;
+}
