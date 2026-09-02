@@ -1,0 +1,147 @@
+/**
+ * Blood Bank Dataset
+ *
+ * In-memory records for the Search Blood in Blood Bank feature (SRS 3.1.6).
+ * Mirrors the blood_banks table defined in database/schema.sql.
+ *
+ * @module BloodBankData
+ */
+
+module.exports = [
+	{
+		id: 1,
+		bloodBankName: 'Bangladesh Red Crescent Blood Centre',
+		facilityType: 'Blood Bank',
+		location: '7/5 Aurangzeb Road, Mohammadpur, Dhaka-1207',
+		city: 'Dhaka',
+		area: 'Mohammadpur',
+		contactNumber: '+880-2-9116563',
+		aPositive: 24,
+		aNegative: 6,
+		bPositive: 31,
+		bNegative: 4,
+		abPositive: 9,
+		abNegative: 2,
+		oPositive: 38,
+		oNegative: 5
+	},
+	{
+		id: 2,
+		bloodBankName: 'Quantum Foundation Blood Bank',
+		facilityType: 'Blood Bank',
+		location: '31/V Shilpacharya Zainul Abedin Sarak, Shantinagar, Dhaka-1217',
+		city: 'Dhaka',
+		area: 'Shantinagar',
+		contactNumber: '+880-2-48322208',
+		aPositive: 18,
+		aNegative: 3,
+		bPositive: 22,
+		bNegative: 5,
+		abPositive: 7,
+		abNegative: 0,
+		oPositive: 29,
+		oNegative: 2
+	},
+	{
+		id: 3,
+		bloodBankName: 'Sandhani Blood Bank, Dhaka Medical College',
+		facilityType: 'Hospital',
+		location: 'Secretariat Road, Shahbagh, Dhaka-1000',
+		city: 'Dhaka',
+		area: 'Shahbagh',
+		contactNumber: '+880-2-55165088',
+		aPositive: 12,
+		aNegative: 0,
+		bPositive: 15,
+		bNegative: 2,
+		abPositive: 4,
+		abNegative: 1,
+		oPositive: 20,
+		oNegative: 0
+	},
+	{
+		id: 4,
+		bloodBankName: 'Chattogram Medical College Hospital Blood Bank',
+		facilityType: 'Hospital',
+		location: 'K B Fazlul Kader Road, Panchlaish, Chattogram-4203',
+		city: 'Chattogram',
+		area: 'Panchlaish',
+		contactNumber: '+880-31-2502001',
+		aPositive: 16,
+		aNegative: 4,
+		bPositive: 19,
+		bNegative: 3,
+		abPositive: 6,
+		abNegative: 1,
+		oPositive: 25,
+		oNegative: 3
+	},
+	{
+		id: 5,
+		bloodBankName: 'Rajshahi Medical College Hospital Transfusion Unit',
+		facilityType: 'Hospital',
+		location: 'Laxmipur, Ghoramara, Rajshahi-6000',
+		city: 'Rajshahi',
+		area: 'Laxmipur',
+		contactNumber: '+880-721-772150',
+		aPositive: 9,
+		aNegative: 2,
+		bPositive: 11,
+		bNegative: 1,
+		abPositive: 3,
+		abNegative: 0,
+		oPositive: 14,
+		oNegative: 1
+	},
+	{
+		id: 6,
+		bloodBankName: 'Sylhet MAG Osmani Medical College Blood Bank',
+		facilityType: 'Hospital',
+		location: 'Kajolshah, Medical Road, Sylhet-3100',
+		city: 'Sylhet',
+		area: 'Kajolshah',
+		contactNumber: '+880-821-713667',
+		aPositive: 0,
+		aNegative: 0,
+		bPositive: 0,
+		bNegative: 0,
+		abPositive: 0,
+		abNegative: 0,
+		oPositive: 0,
+		oNegative: 0
+	},
+	{
+		id: 7,
+		bloodBankName: 'Khulna Medical College Hospital Blood Bank',
+		facilityType: 'Hospital',
+		location: 'Boyra Main Road, Boyra, Khulna-9000',
+		city: 'Khulna',
+		area: 'Boyra',
+		contactNumber: '+880-41-760350',
+		aPositive: 7,
+		aNegative: 1,
+		bPositive: 13,
+		bNegative: 2,
+		abPositive: 2,
+		abNegative: 0,
+		oPositive: 17,
+		oNegative: 0
+	},
+	{
+		id: 8,
+		bloodBankName: 'Police Lines Blood Bank, Rangpur',
+		facilityType: 'Blood Bank',
+		location: 'Jahaj Company More, Station Road, Rangpur-5400',
+		city: 'Rangpur',
+		area: 'Jahaj Company More',
+		contactNumber: '+880-521-62230',
+		aPositive: 5,
+		aNegative: 0,
+		bPositive: 8,
+		bNegative: 1,
+		abPositive: 1,
+		abNegative: 0,
+		oPositive: 12,
+		oNegative: 2
+	}
+];
